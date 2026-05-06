@@ -1,6 +1,6 @@
 package com.example.app.repository;
 
-import com.example.app.entity.User;
+import com.example.app.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,5 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+	
+
 
 }

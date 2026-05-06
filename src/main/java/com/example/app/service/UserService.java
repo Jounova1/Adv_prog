@@ -1,9 +1,8 @@
 package com.example.app.service;
 
 import com.example.app.dto.UserDTO;
-import com.example.app.entity.User;
+import com.example.app.model.User;
 import com.example.app.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,11 +10,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
 public class UserService {
 
     private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     /**
      * Get all users

@@ -1,7 +1,7 @@
 package com.example.app;
 
 import com.example.app.dto.UserDTO;
-import com.example.app.entity.User;
+import com.example.app.model.User;
 import com.example.app.repository.UserRepository;
 import com.example.app.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
