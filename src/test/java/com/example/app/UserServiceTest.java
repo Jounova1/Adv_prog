@@ -1,21 +1,24 @@
 package com.example.app;
 
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import static org.mockito.ArgumentMatchers.any;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import com.example.app.dto.UserDTO;
 import com.example.app.model.Users;
 import com.example.app.repository.UserRepository;
 import com.example.app.service.UserService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -50,13 +53,13 @@ public class UserServiceTest {
     @Test
     public void testCreateUser() {
         when(userRepository.findByEmail("john@example.com")).thenReturn(Optional.empty());
-        when(userRepository.save(any(User.class))).thenReturn(testUser);
+        when(userRepository.save(any(Users.class))).thenReturn(testUser);
 
         UserDTO result = userService.createUser(testUserDTO);
 
         assertNotNull(result);
         assertEquals("John", result.getFirstName());
-        verify(userRepository, times(1)).save(any(User.class));
+        verify(userRepository, times(1)).save(any(Users.class));
     }
 
     @Test

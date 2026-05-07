@@ -135,8 +135,8 @@ public class UserService {
         );
     }
 
-    public User updateProfile(Long id, User updatedUser){
-    User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    public Users updateProfile(Long id, Users updatedUser){
+    Users user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     user.setFirstName(updatedUser.getFirstName());
     user.setLastName(updatedUser.getLastName());
     user.setEmail(updatedUser.getEmail());
