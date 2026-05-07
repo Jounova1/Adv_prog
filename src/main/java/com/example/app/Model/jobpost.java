@@ -1,4 +1,4 @@
-package com.example.worklink.entity;
+package com.example.app.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,12 +12,6 @@ public class JobPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
-    private String company;
-    private String category;
     private String description;
-    private String salary;
-    private String type;
-    private String location;
 }

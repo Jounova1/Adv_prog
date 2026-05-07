@@ -1,4 +1,4 @@
-package com.example.worklink.entity;
+package com.example.app.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,8 +13,15 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
    
     private Long id;
-    private Long userId;
     private Long jobId;
     private String status; 
-    
+
+       @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users user;
+
+    @ManyToOne
+    @JoinColumn(name = "jobpost_id")
+    private JobPost jobPost;
 }
+    
