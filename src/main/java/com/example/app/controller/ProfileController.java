@@ -1,5 +1,5 @@
 package com.example.app.controller;
-import com.example.app.model.*;
+import com.example.app.model.Users;
 import com.example.app.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ProfileController {
-    private UserService userService;
+    private final UserService userService;
     public ProfileController(UserService userService){
         this.userService=userService;
     }
     @GetMapping("/profile")
     public String profile(HttpSession session, Model model) {
-        User user = (User) session.getAttribute("loggedUser");
+        Users user = (Users) session.getAttribute("loggedUser");
         if(user == null){
             return "redirect:/login";
         }
@@ -22,12 +22,12 @@ public class ProfileController {
         return "profile";
     }
     @PostMapping("/profile/update")
-    public String updateProfile(@ModelAttribute User updateUser, HttpSession session) {
-        User user = (User) session.getAttribute("loggedUser");
+    public String updateProfile(@ModelAttribute Users updateUser, HttpSession session) {
+        Users user = (Users) session.getAttribute("loggedUser");
         if(user == null){
             return "redirect:/login";
         }
-        User savedUser = userService.updateProfile(user.getId(), updateUser);
+        Users savedUser = userService.updateProfile(user.getId(), updateUser);
         session.setAttribute("loggedUser", savedUser);
         return "redirect:/profile";
     }
