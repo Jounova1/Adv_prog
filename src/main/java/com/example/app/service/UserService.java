@@ -134,4 +134,16 @@ public class UserService {
                 dto.getIsActive()
         );
     }
+
+    public User updateProfile(Long id, User updatedUser){
+    User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    user.setFirstName(updatedUser.getFirstName());
+    user.setLastName(updatedUser.getLastName());
+    user.setEmail(updatedUser.getEmail());
+    user.setPhone(updatedUser.getPhone());
+    user.setQualification(updatedUser.getQualification());
+    user.setExperience(updatedUser.getExperience());
+    user.setAge(updatedUser.getAge());
+    return userRepository.save(user);
+}
 }
