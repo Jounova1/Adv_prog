@@ -18,7 +18,7 @@ public class Application {
 
        @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Users user;
 
     @ManyToOne
     @JoinColumn(name = "jobpost_id")

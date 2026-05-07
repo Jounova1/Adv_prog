@@ -1,11 +1,11 @@
-package com.example.app.Model;
+package com.example.app.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue
@@ -21,8 +21,8 @@ public class User {
     private String qualification;
     private String experience;
     private boolean isActive;
-    public User() {}
-    public User(Long id, String firstName, String lastName, String email, String phone, boolean isActive) {
+    public Users() {}
+    public Users(Long id, String firstName, String lastName, String email, String phone, boolean isActive) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;

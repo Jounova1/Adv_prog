@@ -1,7 +1,7 @@
 package com.example.app.service;
 
 import com.example.app.dto.UserDTO;
-import com.example.app.model.User;
+import com.example.app.model.Users;
 import com.example.app.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,8 +56,8 @@ public class UserService {
             throw new RuntimeException("Email already exists: " + userDTO.getEmail());
         }
 
-        User user = convertToEntity(userDTO);
-        User savedUser = userRepository.save(user);
+        Users user = convertToEntity(userDTO);
+        Users savedUser = userRepository.save(user);
         return convertToDTO(savedUser);
     }
 
@@ -65,7 +65,7 @@ public class UserService {
      * Update an existing user
      */
     public UserDTO updateUser(Long id, UserDTO userDTO) {
-        User user = userRepository.findById(id)
+        Users user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
 
         user.setFirstName(userDTO.getFirstName());
@@ -73,7 +73,7 @@ public class UserService {
         user.setPhone(userDTO.getPhone());
         user.setIsActive(userDTO.getIsActive());
 
-        User updatedUser = userRepository.save(user);
+        Users updatedUser = userRepository.save(user);
         return convertToDTO(updatedUser);
     }
 
@@ -110,7 +110,7 @@ public class UserService {
     /**
      * Convert Entity to DTO
      */
-    private UserDTO convertToDTO(User user) {
+    private UserDTO convertToDTO(Users user) {
         return new UserDTO(
                 user.getId(),
                 user.getFirstName(),
@@ -124,8 +124,8 @@ public class UserService {
     /**
      * Convert DTO to Entity
      */
-    private User convertToEntity(UserDTO dto) {
-        return new User(
+    private Users convertToEntity(UserDTO dto) {
+        return new Users(
                 null,
                 dto.getFirstName(),
                 dto.getLastName(),
