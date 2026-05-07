@@ -1,0 +1,53 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Jobs - JobLink</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    
+    <div class="navbar">
+      <h2>JobLink</h2>
+
+      <div>
+        <a href="/home">Home</a>
+        <a href="/jobs">Jobs</a>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+      </div>
+    </div>
+
+    <div class="container">
+      
+      <div class="card">
+        <h1>Find Your Next Opportunity</h1>
+        <p>Browse all available jobs and apply instantly</p>
+        <a href="/job/create"><button>Post a Job</button></a>
+      </div>
+
+      
+      <div class="grid">
+        <div th:each="job : ${jobs}" class="card">
+          <h3 th:text="${job.title}"></h3>
+
+          <p><b>Company:</b> <span th:text="${job.company}"></span></p>
+
+          <p><b>Category:</b> <span th:text="${job.category}"></span></p>
+
+          <p><b>Location:</b> <span th:text="${job.location}"></span></p>
+
+          <p><b>Type:</b> <span th:text="${job.type}"></span></p>
+
+          <a th:href="@{'/job/' + ${job.id}}">View Details</a>
+          <a th:href="@{'/job/delete/' + ${job.id}}" style="color: red"
+            >Delete</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>© 2026 JobLink</p>
+    </div>
+  </body>
+</html>

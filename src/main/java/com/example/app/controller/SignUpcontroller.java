@@ -1,6 +1,6 @@
 package com.example.app.controller;
 
-import com.example.app.Model.User;
+import com.example.app.model.*;
 import com.example.app.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
