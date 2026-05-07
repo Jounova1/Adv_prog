@@ -35,7 +35,7 @@ public class LoginController {
             HttpSession session,
             Model model) {
 
-        Optional<User> optionalUser =
+        Optional<Users> optionalUser =
                 userRepository.findByEmail(loginDTO.getEmail());
 
         if(optionalUser.isEmpty()){
@@ -45,7 +45,7 @@ public class LoginController {
             return "login";
         }
 
-        User user = optionalUser.get();
+        Users user = optionalUser.get();
 
         if(!user.getPassword().equals(loginDTO.getPassword())){
 

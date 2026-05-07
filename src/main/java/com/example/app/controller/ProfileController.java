@@ -14,7 +14,7 @@ public class ProfileController {
     }
     @GetMapping("/profile")
     public String profile(HttpSession session, Model model) {
-        User user = (User) session.getAttribute("loggedUser");
+        Users user = (Users) session.getAttribute("loggedUser");
         if(user == null){
             return "redirect:/login";
         }
@@ -22,12 +22,12 @@ public class ProfileController {
         return "profile";
     }
     @PostMapping("/profile/update")
-    public String updateProfile(@ModelAttribute User updateUser, HttpSession session) {
-        User user = (User) session.getAttribute("loggedUser");
+    public String updateProfile(@ModelAttribute Users updateUser, HttpSession session) {
+        Users user = (Users) session.getAttribute("loggedUser");
         if(user == null){
             return "redirect:/login";
         }
-        User savedUser = userService.updateProfile(user.getId(), updateUser);
+        Users savedUser = userService.updateProfile(user.getId(), updateUser);
         session.setAttribute("loggedUser", savedUser);
         return "redirect:/profile";
     }
