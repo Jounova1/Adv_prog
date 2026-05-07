@@ -1,41 +1,28 @@
 /* ================= GLOBAL STYLE ================= */
 
-:root {
-    --primary: #2563eb;
-    --primary-dark: #1d4ed8;
-    --bg: #f4f6f9;
-    --text: #1f2937;
-    --muted: #6b7280;
-    --card: #ffffff;
-    --shadow: 0 10px 25px rgba(0,0,0,0.08);
-    --radius: 14px;
-}
-
 body {
-    font-family: "Segoe UI", system-ui, Arial, sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(180deg, #f9fafb, var(--bg));
-    color: var(--text);
-    line-height: 1.6;
+    background: #f4f6f9;
+    color: #333;
 }
 
 /* Headings */
 h1, h2, h3 {
-    color: var(--text);
+    color: #1f2937;
     margin-bottom: 10px;
-    letter-spacing: -0.3px;
 }
 
 /* Links */
 a {
     text-decoration: none;
-    color: var(--primary);
-    transition: 0.2s;
+    color: #2563eb;
+    margin: 5px;
 }
 
 a:hover {
-    color: var(--primary-dark);
+    text-decoration: underline;
 }
 
 /* ================= LAYOUT ================= */
@@ -44,43 +31,39 @@ a:hover {
     width: 100%;
     max-width: 1100px;
     margin: auto;
-    padding: 24px;
+    padding: 20px;
 }
 
 /* ================= CARD DESIGN ================= */
 
 .card {
-    background: var(--card);
-    padding: 18px;
-    margin: 12px 0;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    transition: all 0.25s ease;
-    border: 1px solid rgba(0,0,0,0.03);
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 18px 35px rgba(0,0,0,0.12);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
 /* ================= BUTTON ================= */
 
 button {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    background: #2563eb;
     color: white;
     border: none;
-    padding: 10px 16px;
-    border-radius: 10px;
+    padding: 10px 15px;
+    border-radius: 8px;
     cursor: pointer;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    box-shadow: 0 6px 15px rgba(37,99,235,0.25);
+    transition: background 0.2s ease;
 }
 
 button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(37,99,235,0.35);
+    background: #1d4ed8;
 }
 
 /* ================= FORMS ================= */
@@ -88,31 +71,28 @@ button:hover {
 form {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    max-width: 420px;
+    gap: 10px;
+    max-width: 400px;
 }
 
 input, select {
-    padding: 11px;
-    border-radius: 10px;
-    border: 1px solid #e5e7eb;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
     width: 100%;
     outline: none;
-    transition: all 0.2s ease;
-    background: #fff;
+    transition: border 0.2s ease;
 }
 
 input:focus, select:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+    border-color: #2563eb;
 }
 
-/* ================= NAVBAR ================= */
+/* ================= NAVBAR (optional reuse) ================= */
 
 .navbar {
-    background: rgba(17,24,39,0.95);
-    backdrop-filter: blur(10px);
-    padding: 15px 20px;
+    background: #111827;
+    padding: 15px;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -122,55 +102,93 @@ input:focus, select:focus {
 .navbar a {
     color: white;
     margin-left: 15px;
-    opacity: 0.85;
-    transition: 0.2s;
 }
 
-.navbar a:hover {
-    opacity: 1;
-}
-
-/* ================= GRID ================= */
+/* ================= GRID HELPERS ================= */
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
 }
 
 /* ================= FOOTER ================= */
 
 .footer {
-    margin-top: 40px;
+    margin-top: 30px;
     text-align: center;
-    padding: 25px;
+    padding: 20px;
     background: #111827;
     color: white;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
 }
-
-/* ================= AUTH ================= */
+/* ================= AUTH PAGES (LOGIN / SIGNUP) ================= */
 
 .auth-container {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: radial-gradient(circle at top, #1f2937, #0f172a);
+    background: linear-gradient(135deg, #1f2937, #111827);
 }
 
 .auth-card {
     background: white;
-    padding: 38px;
-    border-radius: 16px;
+    padding: 35px;
+    border-radius: 14px;
     width: 100%;
-    max-width: 420px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
     text-align: center;
 }
 
-/* ================= PROFILE ================= */
+.auth-card h1 {
+    margin-bottom: 20px;
+    color: #111827;
+}
+
+/* Inputs */
+.auth-card input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    outline: none;
+    transition: 0.2s;
+}
+
+.auth-card input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 5px rgba(37,99,235,0.3);
+}
+
+/* Button */
+.auth-card button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.auth-card button:hover {
+    background: #1d4ed8;
+}
+
+/* Links under form */
+.auth-card p {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.auth-card a {
+    color: #2563eb;
+}
+/* ================= PROFILE PAGE ================= */
 
 .profile-header {
     display: flex;
@@ -178,15 +196,15 @@ input:focus, select:focus {
     gap: 20px;
     background: white;
     padding: 25px;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     margin-top: 20px;
 }
 
 .profile-avatar {
-    width: 85px;
-    height: 85px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    width: 80px;
+    height: 80px;
+    background: #2563eb;
     color: white;
     font-size: 32px;
     font-weight: bold;
@@ -196,27 +214,57 @@ input:focus, select:focus {
     border-radius: 50%;
 }
 
+.profile-info h1 {
+    margin: 0;
+}
+
+.profile-info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.role {
+    display: inline-block;
+    background: #e0ecff;
+    color: #2563eb;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
 /* ================= STATS ================= */
+
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
 
 .stat-card {
     background: white;
     padding: 20px;
     text-align: center;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    transition: 0.2s;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.stat-card:hover {
-    transform: translateY(-4px);
+.stat-card h3 {
+    margin: 0;
+    font-size: 22px;
+    color: #111827;
 }
 
-/* ================= STATUS BADGE ================= */
+/* ================= APPLICATION CARD ================= */
 
+.application-card {
+    border-left: 5px solid #2563eb;
+}
+
+/* Status badge */
 .status {
-    padding: 5px 12px;
+    padding: 4px 10px;
     border-radius: 20px;
-    background: #e5e7eb;
+    background: #f3f4f6;
     font-size: 12px;
-    font-weight: 500;
 }
