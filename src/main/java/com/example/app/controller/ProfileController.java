@@ -1,5 +1,5 @@
 package com.example.app.controller;
-import com.example.app.model.*;
+import com.example.app.model.Users;
 import com.example.app.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ProfileController {
-    private UserService userService;
+    private final UserService userService;
     public ProfileController(UserService userService){
         this.userService=userService;
     }
