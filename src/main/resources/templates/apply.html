@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Apply for Job - JobLink</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #111827;
+        }
+
+        /* ================= NAVBAR ================= */
+        .navbar {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 12px 18px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #374151;
+            margin-left: 12px;
+            cursor: pointer;
+        }
+
+        .navbar a:hover {
+            color: #2563eb;
+        }
+
+        /* ================= CONTAINER ================= */
+        .container {
+            max-width: 700px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        /* ================= CARD ================= */
+        .card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .info {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            background: #2563eb;
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .back {
+            margin-top: 10px;
+            text-align: center;
+            display: block;
+            color: #2563eb;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<div class="navbar">
+
+    <h2>JobLink</h2>
+
+    <div>
+        <a onclick="goHome()">Home</a>
+        <a onclick="goJobs()">Jobs</a>
+        <a onclick="goProfile()">Profile</a>
+    </div>
+
+</div>
+
+<!-- ================= APPLY FORM ================= -->
+<div class="container">
+
+    <div class="card">
+
+        <h1>Apply for Job</h1>
+
+        <p class="info" id="jobInfo">Loading job...</p>
+
+        <p class="info" id="userInfo"></p>
+
+        <button onclick="applyJob()">Submit Application</button>
+
+        <a class="back" onclick="goBack()">← Back to Jobs</a>
+
+    </div>
+
+</div>
+
+<script>
+
+let jobId = null;
+let user = JSON.parse(localStorage.getItem("user"));
+
+/* GET JOB ID FROM URL */
+const params = new URLSearchParams(window.location.search);
+jobId = params.get("jobId");
+
+/* NAVIGATION */
+function goHome() {
+    window.location.href = "/home.html";
+}
+
+function goJobs() {
+    window.location.href = "/jobpage.html";
+}
+
+function goProfile() {
+    window.location.href = "/profile.html";
+}
+
+function goBack() {
+    window.location.href = "/jobpage.html";
+}
+
+/* LOAD INFO */
+async function loadData() {
+
+    if (!user) {
+        alert("Please login first");
+        window.location.href = "/login.html";
+        return;
+    }
+
+    document.getElementById("userInfo").innerText =
+        "Applying as: " + user.firstName;
+
+    try {
+        const res = await fetch("http://localhost:8083/jobs");
+        const jobs = await res.json();
+
+        const job = jobs.find(j => j.id == jobId);
+
+        if (!job) {
+            document.getElementById("jobInfo").innerText = "Job not found";
+            return;
+        }
+
+        document.getElementById("jobInfo").innerHTML = `
+            <b>${job.title}</b><br>
+            ${job.company} - ${job.location}
+        `;
+
+    } catch (err) {
+        document.getElementById("jobInfo").innerText = "Error loading job";
+    }
+}
+
+/* APPLY FUNCTION */
+async function applyJob() {
+
+    if (!user || !jobId) {
+        alert("Missing data");
+        return;
+    }
+
+    const application = {
+        userId: user.id,
+        jobId: jobId,
+        status: "PENDING"
+    };
+
+    const res = await fetch("http://localhost:8083/applications", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(application)
+    });
+
+    if (res.ok) {
+        alert("Applied successfully!");
+        window.location.href = "/jobpage.html";
+    } else {
+        alert("Failed to apply");
+    }
+}
+
+loadData();
+
+</script>
+
+</body>
+</html>

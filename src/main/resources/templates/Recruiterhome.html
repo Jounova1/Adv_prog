@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recruiter Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div><b>Recruiter Dashboard</b></div>
+
+    <div>
+        <a href="#">Home</a>
+        <a href="#">Jobs</a>
+        <a href="#">Profile</a>
+        <a href="#" onclick="logout()">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="profile-header">
+        <div class="profile-avatar">R</div>
+
+        <div class="profile-info">
+            <h1>Welcome Recruiter 👋</h1>
+            <p>Manage your jobs and applicants</p>
+            <span class="role">RECRUITER</span>
+        </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="profile-stats">
+
+        <div class="stat-card">
+            <h3>0</h3>
+            <p>Active Jobs</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>0</h3>
+            <p>Applications</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>0</h3>
+            <p>Shortlisted</p>
+        </div>
+
+    </div>
+
+    <!-- ACTIONS -->
+    <h2 style="margin-top:20px;">Quick Actions</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>➕ Post Job</h3>
+            <p>Create a new job opening</p>
+            <button onclick="createJob()">Create Job</button>
+        </div>
+
+        <div class="card">
+            <h3>📄 My Jobs</h3>
+            <p>View all posted jobs</p>
+            <button onclick="alert('Jobs list next')">View Jobs</button>
+        </div>
+
+        <div class="card">
+            <h3>👥 Applicants</h3>
+            <p>See who applied</p>
+            <button onclick="alert('Applicants page next')">View Applicants</button>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const user = JSON.parse(localStorage.getItem("user"));
+
+if (!user || user.role !== "RECRUITER") {
+    window.location.href = "login.html";
+}
+
+function createJob() {
+    window.location.href = "CreateJob.html";
+}
+
+function logout() {
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+}
+
+</script>
+
+</body>
+
+</html>

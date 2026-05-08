@@ -1,53 +1,134 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <title>Create Job</title>
-    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #f4f6f9;
+        }
+
+        .navbar {
+            background: #111827;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar a {
+            color: white;
+            margin-left: 15px;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+    </style>
 </head>
+
 <body>
 
 <div class="navbar">
     <h2>JobLink</h2>
 
     <div>
-        <a href="/home">Home</a>
-        <a href="/jobs">Jobs</a>
+        <a href="Recruiterhome.html">Dashboard</a>
+        <a href="jobpage.html">Jobs</a>
     </div>
 </div>
 
 <div class="container">
 
-<div class="card">
+    <div class="card">
 
-    <h1>Create New Job</h1>
+        <h1>Create New Job</h1>
 
-    <form action="/job/create" method="post">
+        <input type="text" id="title" placeholder="Job Title">
+        <input type="text" id="company" placeholder="Company">
+        <input type="text" id="category" placeholder="Category">
+        <input type="text" id="location" placeholder="Location">
+        <input type="text" id="salary" placeholder="Salary">
+        <input type="text" id="type" placeholder="Type (Full-time / Part-time)">
+        <textarea id="description" placeholder="Job Description"></textarea>
 
-        <input type="text" name="title" placeholder="Job Title">
+        <button onclick="createJob()">Create Job</button>
 
-        <input type="text" name="company" placeholder="Company">
-
-        <input type="text" name="category" placeholder="Category">
-
-        <input type="text" name="location" placeholder="Location">
-
-        <input type="text" name="salary" placeholder="Salary">
-
-        <input type="text" name="type" placeholder="Type (Full-time / Part-time)">
-
-        <textarea name="description" placeholder="Job Description"></textarea>
-
-        <button type="submit">Create Job</button>
-
-    </form>
+    </div>
 
 </div>
 
-</div>
+<script>
+async function createJob() {
 
-<div class="footer">
-    <p>© 2026 JobLink</p>
-</div>
+    const job = {
+        title: document.getElementById("title").value,
+        company: document.getElementById("company").value,
+        category: document.getElementById("category").value,
+        location: document.getElementById("location").value,
+        salary: document.getElementById("salary").value,
+        type: document.getElementById("type").value,
+        description: document.getElementById("description").value
+    };
+
+    try {
+
+        const res = await fetch("http://localhost:8083/jobs", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(job)
+        });
+
+        if (!res.ok) {
+            throw new Error("Failed");
+        }
+
+        alert("Job created successfully!");
+
+     
+
+    } catch (err) {
+        console.error(err);
+        alert("Error creating job");
+    }
+}
+</script>
 
 </body>
 </html>

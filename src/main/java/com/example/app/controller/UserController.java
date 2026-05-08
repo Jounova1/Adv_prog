@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.app.dto.UserDTO;
+import com.example.app.dto.SignupRequest;
 import com.example.app.service.UserService;
 import jakarta.validation.Valid;
 
@@ -31,32 +31,32 @@ public class UserController {
    
 
     @GetMapping
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
-        List<UserDTO> users = userService.getAllUsers();
+    public ResponseEntity<List<SignupRequest>> getAllUsers() {
+        List<SignupRequest> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
-        UserDTO user = userService.getUserById(id);
+    public ResponseEntity<SignupRequest> getUserById(@PathVariable Long id) {
+        SignupRequest user = userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<UserDTO>> searchUsers(@RequestParam String term) {
-        List<UserDTO> users = userService.searchUsers(term);
+    public ResponseEntity<List<SignupRequest>> searchUsers(@RequestParam String term) {
+        List<SignupRequest> users = userService.searchUsers(term);
         return ResponseEntity.ok(users);
     }
 
     @GetMapping("/active/list")
-    public ResponseEntity<List<UserDTO>> getActiveUsers() {
-        List<UserDTO> users = userService.getActiveUsers();
+    public ResponseEntity<List<SignupRequest>> getActiveUsers() {
+        List<SignupRequest> users = userService.getActiveUsers();
         return ResponseEntity.ok(users);
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createUser(@Valid @RequestBody UserDTO userDTO) {
-        UserDTO createdUser = userService.createUser(userDTO);
+    public ResponseEntity<Map<String, Object>> createUser(@Valid @RequestBody SignupRequest userDTO) {
+        SignupRequest createdUser = userService.createUser(userDTO);
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", "User created successfully");
@@ -68,8 +68,8 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> updateUser(
             @PathVariable Long id,
-            @Valid @RequestBody UserDTO userDTO) {
-        UserDTO updatedUser = userService.updateUser(id, userDTO);
+            @Valid @RequestBody SignupRequest userDTO) {
+        SignupRequest updatedUser = userService.updateUser(id, userDTO);
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", "User updated successfully");

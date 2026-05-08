@@ -1,80 +1,287 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <title>Profile - JobLink</title>
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #111827;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+        }
+
+        .navbar a {
+            margin-left: 15px;
+            text-decoration: none;
+            color: #374151;
+        }
+
+        .navbar a:hover {
+            color: #2563eb;
+        }
+
+        /* LAYOUT */
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 25px;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 20px;
+        }
+
+        /* LEFT PROFILE CARD */
+        .profile-card {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: center;
+            height: fit-content;
+        }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+            background: #2563eb;
+            color: white;
+            font-size: 34px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            font-weight: bold;
+        }
+
+        .name {
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .email {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .role {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 5px 12px;
+            background: #e0ecff;
+            color: #2563eb;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        /* RIGHT SECTION */
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+        }
+
+        .section h2 {
+            margin-top: 0;
+        }
+
+        /* INFO GRID */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .info-box {
+            background: #f9fafb;
+            padding: 12px;
+            border-radius: 10px;
+        }
+
+        .label {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        /* APPLICATIONS */
+        .app-card {
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            margin-top: 10px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: #e0ecff;
+            color: #2563eb;
+            font-size: 12px;
+        }
+
+        /* EMPTY STATE */
+        .empty {
+            text-align: center;
+            padding: 20px;
+            color: #6b7280;
+        }
+
+    </style>
 </head>
+
 <body>
 
-<!-- NAVBAR -->
 <div class="navbar">
     <h2>JobLink</h2>
+
     <div>
-        <a href="home.html">Home</a>
-        <a href="jobs.html">Jobs</a>
-        <a href="login.html">Logout</a>
+        <a href="Userhome.html">Home</a>
+        <a href="jobpage.html">Jobs</a>
+        <a href="#" onclick="logout()">Logout</a>
     </div>
 </div>
 
 <div class="container">
 
-    <!-- PROFILE HEADER -->
-    <div class="profile-header">
+    <!-- LEFT -->
+    <div class="profile-card">
 
-        <div class="profile-avatar">
-            <span th:text="${#strings.substring(user.name,0,1)}">U</span>
-        </div>
+        <div class="avatar" id="avatar">U</div>
 
-        <div class="profile-info">
-            <h1 th:text="${user.name}">User Name</h1>
-            <p th:text="${user.email}">user@email.com</p>
-            <p class="role">Job Seeker</p>
-        </div>
+        <div class="name" id="name">User</div>
+        <div class="email" id="email">email</div>
+
+        <div class="role" id="role">USER</div>
 
     </div>
 
-    <!-- STATS -->
-    <div class="profile-stats">
+    <!-- RIGHT -->
+    <div>
 
-        <div class="stat-card">
-            <h3 th:text="${applications.size()}">0</h3>
-            <p>Applications</p>
+        <!-- INFO -->
+        <div class="section">
+            <h2>Personal Info</h2>
+
+            <div class="info-grid">
+
+                <div class="info-box">
+                    <div class="label">First Name</div>
+                    <div id="firstName">-</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="label">Last Name</div>
+                    <div id="lastName">-</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="label">Email</div>
+                    <div id="emailCard">-</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="label">Account Type</div>
+                    <div id="accountType">-</div>
+                </div>
+
+            </div>
         </div>
 
-        <div class="stat-card">
-            <h3>Active</h3>
-            <p>Status</p>
+        <!-- APPLICATIONS -->
+        <div class="section">
+            <h2>My Applications</h2>
+
+            <div id="applicationsContainer"></div>
+
         </div>
-
-        <div class="stat-card">
-            <h3>Premium</h3>
-            <p>Account</p>
-        </div>
-
-    </div>
-
-    <!-- APPLICATIONS -->
-    <h2>My Applications</h2>
-
-    <div th:if="${applications.isEmpty()}">
-        <div class="card">
-            <p>No applications yet. Start applying for jobs!</p>
-        </div>
-    </div>
-
-    <div th:each="app : ${applications}" class="card application-card">
-
-        <h3 th:text="${app.job.title}">Job Title</h3>
-        <p><b>Company:</b> <span th:text="${app.job.company}"></span></p>
-        <p><b>Status:</b>
-            <span class="status" th:text="${app.status}">Pending</span>
-        </p>
-
-        <a th:href="@{'/job/' + ${app.job.id}}">View Job</a>
 
     </div>
 
 </div>
+
+<script>
+
+const user = JSON.parse(localStorage.getItem("user"));
+
+if (!user) {
+    window.location.href = "login.html";
+}
+
+/* PROFILE */
+document.getElementById("name").innerText =
+    user.firstName + " " + user.lastName;
+
+document.getElementById("email").innerText = user.email;
+document.getElementById("role").innerText = user.role;
+
+document.getElementById("firstName").innerText = user.firstName;
+document.getElementById("lastName").innerText = user.lastName;
+document.getElementById("emailCard").innerText = user.email;
+document.getElementById("accountType").innerText = user.role;
+
+document.getElementById("avatar").innerText =
+    user.firstName ? user.firstName[0].toUpperCase() : "U";
+
+/* APPLICATIONS */
+async function loadApplications() {
+
+    try {
+        const res = await fetch(`http://localhost:8083/applications/user/${user.id}`);
+        const apps = await res.json();
+
+        const container = document.getElementById("applicationsContainer");
+        container.innerHTML = "";
+
+        if (!apps || apps.length === 0) {
+            container.innerHTML = `
+                <div class="empty">
+                    No applications yet. Start applying to jobs 🚀
+                </div>
+            `;
+            return;
+        }
+
+        apps.forEach(app => {
+            container.innerHTML += `
+                <div class="app-card">
+                    <h3>${app.job.title}</h3>
+                    <p>${app.job.company} • ${app.job.location}</p>
+                    <span class="status">${app.status}</span>
+                </div>
+            `;
+        });
+
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+loadApplications();
+
+/* LOGOUT */
+function logout() {
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+}
+
+</script>
 
 </body>
 </html>

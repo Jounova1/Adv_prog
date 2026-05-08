@@ -1,7 +1,7 @@
 package com.example.app.service;
 
-import com.example.app.model.JobPost;
-import com.example.app.repository.JobPostRepository;
+import com.example.app.model.Job;
+import com.example.app.repository.JobRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,31 +9,17 @@ import java.util.List;
 @Service
 public class JobService {
 
-    private final JobPostRepository jobRepo;
+    private final JobRepository jobRepository;
 
-    public JobService(JobPostRepository jobRepo) {
-        this.jobRepo = jobRepo;
+    public JobService(JobRepository jobRepository) {
+        this.jobRepository = jobRepository;
     }
 
-    // Get all jobs
-    public List<JobPost> getAllJobs() {
-        return jobRepo.findAll();
+    public Job createJob(Job job) {
+        return jobRepository.save(job);
     }
 
-    // Get one job by id
-    public JobPost getJobById(Long id) {
-
-        return jobRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Job not found"));
-    }
-
-    // Create new job
-    public void createJob(JobPost job) {
-        jobRepo.save(job);
-    }
-
-    // Delete job
-    public void deleteJob(Long id) {
-        jobRepo.deleteById(id);
+    public List<Job> getAllJobs() {
+        return jobRepository.findAll();
     }
 }

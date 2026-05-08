@@ -1,53 +1,310 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
-  <head>
+<!DOCTYPE html>
+<html>
+
+<head>
     <title>Jobs - JobLink</title>
-    <link rel="stylesheet" href="/style.css" />
-  </head>
-  <body>
-    
-    <div class="navbar">
-      <h2>JobLink</h2>
 
-      <div>
-        <a href="/home">Home</a>
-        <a href="/jobs">Jobs</a>
-        <a href="/profile">Profile</a>
-        <a href="/logout">Logout</a>
-      </div>
+    <style>
+
+        /* ================= GLOBAL ================= */
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #333;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            background: #111827;
+            color: white;
+            padding: 15px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        /* ================= HEADER ================= */
+
+        .header {
+            background: linear-gradient(135deg,#1f2937,#374151);
+            color: white;
+            padding: 40px;
+            border-radius: 14px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            margin-top: 0;
+        }
+
+        /* ================= SEARCH ================= */
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-box input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* ================= INPUTS ================= */
+
+        input {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+            font-size: 14px;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+        }
+
+        /* ================= BUTTON ================= */
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        /* ================= JOB GRID ================= */
+
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+            gap: 20px;
+        }
+
+        /* ================= JOB CARD ================= */
+
+        .job-card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: 0.2s;
+        }
+
+        .job-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .job-title {
+            margin: 0;
+            color: #111827;
+        }
+
+        .company {
+            color: #2563eb;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .job-info {
+            margin-top: 12px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e0ecff;
+            color: #2563eb;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 10px;
+            margin-right: 5px;
+        }
+
+        .salary {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #111827;
+        }
+
+        .job-card button {
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        /* ================= FOOTER ================= */
+
+        .footer {
+            margin-top: 50px;
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+    <h2>JobLink</h2>
+
+    <div>
+        <a href="Userhome.html">Home</a>
+        <a href="jobpage.html">Jobs</a>
+        <a href="profile.html">Profile</a>
+        <a href="login.html">Login</a>
     </div>
 
-    <div class="container">
-      
-      <div class="card">
-        <h1>Find Your Next Opportunity</h1>
-        <p>Browse all available jobs and apply instantly</p>
-        <a href="/job/create"><button>Post a Job</button></a>
-      </div>
+</div>
 
-      
-      <div class="grid">
-        <div th:each="job : ${jobs}" class="card">
-          <h3 th:text="${job.title}"></h3>
+<!-- MAIN -->
 
-          <p><b>Company:</b> <span th:text="${job.company}"></span></p>
+<div class="container">
 
-          <p><b>Category:</b> <span th:text="${job.category}"></span></p>
+    <!-- HEADER -->
 
-          <p><b>Location:</b> <span th:text="${job.location}"></span></p>
+    <div class="header">
 
-          <p><b>Type:</b> <span th:text="${job.type}"></span></p>
+        <h1>Find Your Dream Job</h1>
 
-          <a th:href="@{'/job/' + ${job.id}}">View Details</a>
-          <a th:href="@{'/job/delete/' + ${job.id}}" style="color: red"
-            >Delete</a
-          >
+        <p>
+            Browse thousands of opportunities from top companies
+        </p>
+
+        <div class="search-box">
+
+            <input type="text" placeholder="Search jobs">
+
+            <input type="text" placeholder="Location">
+
+            <button>
+                Search
+            </button>
+
         </div>
-      </div>
+
     </div>
 
-    <div class="footer">
-      <p>© 2026 JobLink</p>
+    <!-- JOBS (NOW DYNAMIC) -->
+
+    <div class="jobs-grid" id="jobsContainer">
+        <!-- jobs will load here -->
     </div>
-  </body>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer">
+    <p>© 2026 JobLink. All rights reserved.</p>
+</div>
+
+<script>
+async function loadJobs() {
+
+    try {
+        const res = await fetch("http://localhost:8083/jobs");
+        const jobs = await res.json();
+
+        const container = document.getElementById("jobsContainer");
+        container.innerHTML = "";
+
+        jobs.forEach(job => {
+
+            container.innerHTML += `
+                <div class="job-card">
+
+                    <h2 class="job-title">${job.title}</h2>
+
+                    <p class="company">${job.company}</p>
+
+                    <div class="job-info">📍 ${job.location}</div>
+
+                    <div class="job-info">🕒 ${job.type}</div>
+
+                    <span class="tag">${job.category}</span>
+
+                    <div class="salary">${job.salary}</div>
+
+                    <button onclick="goToApply(${job.id})">
+                        Apply Now
+                    </button>
+
+                </div>
+            `;
+        });
+
+    } catch (err) {
+        console.error(err);
+        alert("Failed to load jobs from database");
+    }
+
+}
+async function applyJob(jobId) {
+
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    await fetch("http://localhost:8083/applications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            userId: user.id,
+            jobId: jobId,
+            status: "PENDING"
+        })
+    });
+
+    window.location.href = "/Userhome.html";
+}
+function goToApply(jobId) {
+window.location.href = "/apply?jobId=" + jobId;
+}
+loadJobs();
+</script>
+
+</body>
 </html>
