@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home - Job Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div style="background:#111827;padding:15px;color:white;display:flex;justify-content:space-between;align-items:center;">
+    <h2 style="margin:0;">JobLink</h2>
+    <div>
+        <a href="home.html" style="color:white;margin-right:15px;">Home</a>
+        <a href="profile.html" style="color:white;margin-right:15px;">Profile</a>
+        <a href="jobpage.html" style="color:white;margin-right:15px;">Jobs</a>
+        <a href="login.html" style="color:white;margin-right:15px;">Login</a>
+        <a href="signup.html" style="color:white;">Sign Up</a>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- HERO SECTION -->
+<div class="card" style="text-align:center;padding:50px;background:linear-gradient(135deg,#1f2937,#374151);color:white;">
+    <h1>Find Your Next Opportunity</h1>
+    <p>Connect with top companies and discover your dream career</p>
+    <a href="/jobs"><button style="margin-top:15px;">Browse Jobs</button></a>
+</div>
+<div style="display:flex;justify-content:space-around;margin-top:20px;">
+    <div class="card" style="text-align:center;flex:1;margin:5px;">
+        <h2>1000+</h2>
+        <p>Active Jobs</p>
+    </div>
+    <div class="card" style="text-align:center;flex:1;margin:5px;">
+        <h2>500+</h2>
+        <p>Companies</p>
+    </div>
+    <div class="card" style="text-align:center;flex:1;margin:5px;">
+        <h2>10K+</h2>
+        <p>Job Seekers</p>
+    </div>
+</div>
+<h2>Popular Categories</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;">
+    <div class="card" style="text-align:center;">IT</div>
+    <div class="card" style="text-align:center;">Engineering</div>
+    <div class="card" style="text-align:center;">Marketing</div>
+    <div class="card" style="text-align:center;">HR</div>
+    <div class="card" style="text-align:center;">Finance</div>
+</div>
+<h2>Featured Jobs</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px;">
+
+    <div th:each="job : ${jobs}" class="card">
+        <h3 th:text="${job.title}"></h3>
+        <p th:text="${job.company}"></p>
+        <p th:text="${job.category}"></p>
+        <a th:href="@{'/job/' + ${job.id}}">View Details</a>
+    </div>
+
+</div>
+<h2>How It Works</h2>
+<div style="display:flex;gap:10px;">
+    <div class="card" style="flex:1;">
+        <h3>1. Create Account</h3>
+        <p>Sign up as a job seeker or employer</p>
+    </div>
+    <div class="card" style="flex:1;">
+        <h3>2. Browse Jobs</h3>
+        <p>Search and explore opportunities</p>
+    </div>
+    <div class="card" style="flex:1;">
+        <h3>3. Apply Easily</h3>
+        <p>Submit applications in one click</p>
+    </div>
+</div>
+<div style="margin-top:30px;text-align:center;padding:20px;background:#111827;color:white;">
+    <p>© 2026 JobLink. All rights reserved.</p>
+</div>
+
+</div>
+
+</body>
+</html>
